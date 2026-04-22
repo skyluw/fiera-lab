@@ -1,7 +1,7 @@
 // app/page.tsx
 import { client } from "@/sanity/lib/client";
 import ContactForm from "./ContactForm";
-
+export const dynamic = "force-dynamic";
 // ─── Types ────────────────────────────────────────────────────────────────────
 interface Hero {
   titulo: string;
