@@ -2,9 +2,11 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Fiera Lab ",
-  description:
-    "Fiera Lab crea experiencias, activaciones y producciones BTL con impacto real.",
+  title: "Fiera Lab",
+  description: "Fiera Lab crea experiencias, activaciones y producciones BTL con impacto real.",
+  icons: {
+    icon: '/favicon.svg',
+  },
 };
 
 export default function RootLayout({

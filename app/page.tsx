@@ -1,8 +1,7 @@
 // app/page.tsx
 import { client } from "@/sanity/lib/client";
 import ContactForm from "./ContactForm";
-export const dynamic = "force-dynamic";
-// ─── Types ────────────────────────────────────────────────────────────────────
+
 interface Hero {
   titulo: string;
   descripcion: string;
@@ -14,11 +13,9 @@ interface Servicio {
   descripcion: string;
 }
 
-// ─── Queries GROQ ─────────────────────────────────────────────────────────────
 const heroQuery = `*[_type == "hero"][0]{ titulo, descripcion }`;
 const serviciosQuery = `*[_type == "servicio"]{ _id, titulo, descripcion }`;
 
-// ─── Page (Server Component) ──────────────────────────────────────────────────
 export default async function Home() {
   const hero: Hero = await client.fetch(heroQuery);
   const servicios: Servicio[] = await client.fetch(serviciosQuery);
@@ -79,13 +76,6 @@ export default async function Home() {
           padding: 1.5rem 3rem;
           mix-blend-mode: difference;
         }
-        .logo {
-          font-family: 'Bebas Neue', sans-serif;
-          font-size: 1.8rem;
-          letter-spacing: 0.15em;
-          color: var(--blanco);
-          text-decoration: none;
-        }
         .nav-links { display: flex; gap: 2.5rem; list-style: none; }
         .nav-links a {
           font-family: 'Space Mono', monospace;
@@ -115,19 +105,9 @@ export default async function Home() {
           position: relative;
           z-index: 2;
         }
-        .hero-tag {
-          font-family: 'Space Mono', monospace;
-          font-size: 0.65rem;
-          letter-spacing: 0.3em;
-          color: var(--naranja);
-          text-transform: uppercase;
-          margin-bottom: 2rem;
-          opacity: 0;
-          animation: fadeUp 0.8s 0.3s forwards;
-        }
         .hero-titulo {
           font-family: 'Bebas Neue', sans-serif;
-          font-size: clamp(4rem, 8vw, 9rem);
+          font-size: clamp(3rem, 6vw, 7rem);
           line-height: 0.9;
           letter-spacing: -0.02em;
           margin-bottom: 2rem;
@@ -210,7 +190,7 @@ export default async function Home() {
           font-family: 'Bebas Neue', sans-serif;
           font-size: 1.2rem;
           letter-spacing: 0.3em;
-          color: var(--blanco);
+          color: var(--negro);
           padding: 0 3rem;
         }
         @keyframes marquee {
@@ -218,8 +198,7 @@ export default async function Home() {
           to { transform: translateX(-50%); }
         }
 
-        /* SERVICIOS */
-        .servicios { padding: 8rem 3rem; }
+        /* SECCIÓN ADN */
         .section-label {
           font-family: 'Space Mono', monospace;
           font-size: 0.65rem;
@@ -234,86 +213,23 @@ export default async function Home() {
           line-height: 0.95;
           margin-bottom: 5rem;
         }
-        .servicios-grid {
-          display: grid;
-          grid-template-columns: repeat(3, 1fr);
-          gap: 0;
-          border: 1px solid #2a1840;
-        }
-        .servicio-item {
-          padding: 3rem 2.5rem;
-          border-right: 1px solid #2a1840;
-          border-bottom: 1px solid #2a1840;
-          position: relative;
-          overflow: hidden;
-          transition: background 0.4s;
-        }
-        .servicio-item:hover { background: var(--gris); }
-        .servicio-item::after {
-          content: '';
-          position: absolute;
-          bottom: 0; left: 0;
-          width: 0; height: 3px;
-          background: var(--naranja);
-          transition: width 0.4s;
-        }
-        .servicio-item:hover::after { width: 100%; }
-        .servicio-num {
-          font-family: 'Bebas Neue', sans-serif;
-          font-size: 4rem;
-          color: #2a1840;
-          line-height: 1;
-          margin-bottom: 1.5rem;
-        }
-        .servicio-nombre {
-          font-family: 'Bebas Neue', sans-serif;
-          font-size: 1.8rem;
-          letter-spacing: 0.05em;
-          margin-bottom: 1rem;
-        }
-        .servicio-desc { font-size: 0.85rem; line-height: 1.7; color: #888; }
 
-        /* NÚMEROS */
-        .numeros {
-          background: var(--morado);
-          padding: 6rem 3rem;
-          display: grid;
-          grid-template-columns: repeat(4, 1fr);
-        }
-        .numero-item {
-          text-align: center;
-          padding: 2rem;
-          border-right: 1px solid rgba(255,255,255,0.2);
-        }
-        .numero-item:last-child { border-right: none; }
-        .numero-val {
-          font-family: 'Bebas Neue', sans-serif;
-          font-size: 5rem;
-          line-height: 1;
-          color: var(--negro);
-        }
-        .numero-label {
-          font-family: 'Space Mono', monospace;
-          font-size: 0.65rem;
-          letter-spacing: 0.2em;
-          color: rgba(0,0,0,0.6);
-          text-transform: uppercase;
-          margin-top: 0.5rem;
-        }
-
-        /* PROCESO */
+        /* PROCESO / ADN */
         .proceso { background: var(--gris); padding: 8rem 3rem; }
         .proceso-pasos {
           display: grid;
-          grid-template-columns: repeat(4, 1fr);
+          grid-template-columns: repeat(3, 1fr);
           gap: 3rem;
+          max-width: 900px;
+          margin-left: auto;
+          margin-right: auto;
           margin-top: 5rem;
           position: relative;
         }
         .proceso-pasos::before {
           content: '';
           position: absolute;
-          top: 2.5rem; left: 12%; right: 12%;
+          top: 2.5rem; left: 15%; right: 15%;
           height: 1px;
           background: linear-gradient(to right, transparent, var(--naranja), transparent);
         }
@@ -414,39 +330,14 @@ export default async function Home() {
         footer {
           background: var(--negro);
           border-top: 1px solid #1f0f2e;
-          padding: 4rem 3rem 2rem;
+          padding: 2rem 3rem;
         }
-        .footer-grid {
-          display: grid;
-          grid-template-columns: 2fr 1fr 1fr 1fr;
-          gap: 4rem;
-          margin-bottom: 4rem;
-        }
-        .footer-logo {
-          font-family: 'Bebas Neue', sans-serif;
-          font-size: 3rem;
-          letter-spacing: 0.1em;
-          line-height: 1;
-          margin-bottom: 1rem;
-        }
-        .footer-tagline { font-size: 0.85rem; color: #666; line-height: 1.6; max-width: 280px; }
-        .footer-col-title {
-          font-family: 'Space Mono', monospace;
-          font-size: 0.6rem;
-          letter-spacing: 0.25em;
-          color: var(--naranja);
-          text-transform: uppercase;
-          margin-bottom: 1.5rem;
-        }
-        .footer-links { list-style: none; display: flex; flex-direction: column; gap: 0.8rem; }
-        .footer-links a { font-size: 0.85rem; color: #666; text-decoration: none; transition: color 0.2s; }
-        .footer-links a:hover { color: var(--blanco); }
         .footer-bottom {
-          border-top: 1px solid #1f0f2e;
-          padding-top: 2rem;
           display: flex;
           justify-content: space-between;
           align-items: center;
+          flex-wrap: wrap;
+          gap: 1rem;
         }
         .footer-copy {
           font-family: 'Space Mono', monospace;
@@ -454,7 +345,7 @@ export default async function Home() {
           letter-spacing: 0.15em;
           color: #444;
         }
-        .footer-social { display: flex; gap: 2rem; }
+        .footer-social { display: flex; gap: 2rem; align-items: center; }
         .footer-social a {
           font-family: 'Space Mono', monospace;
           font-size: 0.6rem;
@@ -509,14 +400,12 @@ export default async function Home() {
         @media (max-width: 900px) {
           .hero { grid-template-columns: 1fr; }
           .hero-right { height: 300px; }
-          .servicios-grid { grid-template-columns: 1fr; }
-          .numeros { grid-template-columns: 1fr 1fr; }
-          .proceso-pasos { grid-template-columns: 1fr 1fr; }
+          .proceso-pasos { grid-template-columns: 1fr; }
           .proceso-pasos::before { display: none; }
           .cta-final { grid-template-columns: 1fr; }
-          .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
           .form-row { grid-template-columns: 1fr; }
           nav { padding: 1.2rem 1.5rem; }
+          .footer-bottom { flex-direction: column; text-align: center; }
         }
       `}</style>
 
@@ -526,36 +415,25 @@ export default async function Home() {
 
       {/* NAV */}
       <nav>
-        <a href="#" className="logo">FIERA LAB</a>
+        <a href="#">
+          <img src="/logo.svg" alt="Fiera Lab" height={40} width={140} style={{display:"block"}} />
+        </a>
         <ul className="nav-links">
-          <li><a href="#servicios">Servicios</a></li>
-          <li><a href="#proceso">Proceso</a></li>
+          <li><a href="#adn">Nuestro ADN</a></li>
           <li><a href="#contacto">Contacto</a></li>
         </ul>
       </nav>
 
-      {/* HERO — datos desde Sanity */}
+      {/* HERO */}
       <section className="hero">
         <div className="hero-left">
-          <p className="hero-tag">↗ Agencia de Marketing BTL</p>
           <h1 className="hero-titulo">
-            {hero?.titulo
-              ? hero.titulo.split(" ").map((word: string, i: number) =>
-                  i === Math.floor(hero.titulo.split(" ").length / 2)
-                    ? <span key={i}>{word} </span>
-                    : <span key={i}>{word} </span>
-                )
-              : (
-                <>
-                  DONDE<br />
-                  <span>LA FIERA</span>
-                  RUGE
-                </>
-              )
-            }
+            {hero?.titulo ? hero.titulo : (
+              <>ESTAMOS<br /><span>CONSTRUYENDO</span><br />ALGO QUE NO<br />HAS VISTO.</>
+            )}
           </h1>
           <p className="hero-desc">
-            {hero?.descripcion ?? "Diseñamos y ejecutamos activaciones, eventos y experiencias de marca que generan impacto real."}
+            {hero?.descripcion ?? "Un laboratorio donde la estrategia se vuelve brutal, la creatividad incomoda y la tecnología no tiene excusas. Para marcas que no quieren crecer despacio."}
           </p>
         </div>
         <div className="hero-right">
@@ -582,62 +460,15 @@ export default async function Home() {
         </div>
       </div>
 
-      {/* SERVICIOS — datos desde Sanity */}
-      <section className="servicios" id="servicios">
-        <p className="section-label reveal">— Lo que hacemos</p>
-        <h2 className="section-titulo reveal">NUESTROS<br />SERVICIOS</h2>
-        <div className="servicios-grid">
-          {servicios && servicios.length > 0
-            ? servicios.map((servicio, i) => (
-                <div className="servicio-item reveal" key={servicio._id}>
-                  <div className="servicio-num">0{i + 1}</div>
-                  <h3 className="servicio-nombre">{servicio.titulo}</h3>
-                  <p className="servicio-desc">{servicio.descripcion}</p>
-                </div>
-              ))
-            : (
-              // Fallback si Sanity no devuelve datos aún
-              [
-                { n: "01", t: "Activaciones de Marca", d: "Generamos puntos de contacto únicos entre tu marca y el consumidor." },
-                { n: "02", t: "Eventos & Lanzamientos", d: "Producción integral de eventos corporativos y lanzamientos de producto." },
-                { n: "03", t: "Street Marketing", d: "Tomamos las calles para llevar tu mensaje directamente al consumidor." },
-              ].map((s) => (
-                <div className="servicio-item reveal" key={s.n}>
-                  <div className="servicio-num">{s.n}</div>
-                  <h3 className="servicio-nombre">{s.t}</h3>
-                  <p className="servicio-desc">{s.d}</p>
-                </div>
-              ))
-            )
-          }
-        </div>
-      </section>
-
-      {/* NÚMEROS */}
-      <div className="numeros">
-        {[
-          { val: "+200", label: "Campañas ejecutadas" },
-          { val: "12",   label: "Años de experiencia" },
-          { val: "+80",  label: "Marcas aliadas" },
-          { val: "6M",   label: "Personas impactadas" },
-        ].map((n) => (
-          <div className="numero-item reveal" key={n.label}>
-            <div className="numero-val">{n.val}</div>
-            <div className="numero-label">{n.label}</div>
-          </div>
-        ))}
-      </div>
-
-      {/* PROCESO */}
-      <section className="proceso" id="proceso">
-        <p className="section-label reveal">— Cómo trabajamos</p>
-        <h2 className="section-titulo reveal">NUESTRO<br />PROCESO</h2>
+      {/* ADN */}
+      <section className="proceso" id="adn">
+        <p className="section-label reveal">— Lo que nos define</p>
+        <h2 className="section-titulo reveal">NUESTRO<br />ADN</h2>
         <div className="proceso-pasos">
           {[
-            { n: "01", t: "Diagnóstico",  d: "Analizamos tu marca, audiencia y objetivos para entender las oportunidades reales." },
-            { n: "02", t: "Estrategia",   d: "Diseñamos el concepto, canales, timing y métricas de éxito alineadas a tu presupuesto." },
-            { n: "03", t: "Producción",   d: "Ejecutamos con precisión. Coordinamos equipo, materiales y logística." },
-            { n: "04", t: "Resultados",   d: "Medimos, reportamos y optimizamos. Cada campaña genera aprendizajes." },
+            { n: "01", t: "ESTRATEGIA", d: "No somos proveedores. Somos cómplices de tu crecimiento." },
+            { n: "02", t: "CREATIVIDAD", d: "Ideas que incomodan al mercado y enamoran a tu audiencia." },
+            { n: "03", t: "TECNOLOGÍA", d: "Herramientas que hacen el trabajo sucio para que tú escales sin límites." },
           ].map((p) => (
             <div className="paso reveal" key={p.n}>
               <div className="paso-num">{p.n}</div>
@@ -652,55 +483,25 @@ export default async function Home() {
       <section className="cta-final" id="contacto">
         <div>
           <p className="section-label reveal">— Comencemos</p>
-          <h2 className="cta-titulo reveal">TU MARCA<br />MERECE<br /><em>ESTAR</em><br />EN TODAS<br />PARTES</h2>
+          <h2 className="cta-titulo reveal">LAS MARCAS<br />QUE NOS<br />ELIGEN NO<br />BUSCAN UNA<br /><em>AGENCIA.</em><br />BUSCAN<br />RESULTADOS.</h2>
         </div>
         <ContactForm servicios={servicios ?? []} />
       </section>
 
       {/* FOOTER */}
       <footer>
-        <div className="footer-grid">
-          <div>
-            <div className="footer-logo">FIERA LAB</div>
-            <p className="footer-tagline">Agencia BTL especializada en crear experiencias que conectan marcas con personas en el mundo real.</p>
-          </div>
-          <div>
-            <p className="footer-col-title">Servicios</p>
-            <ul className="footer-links">
-              {servicios?.map((s) => (
-                <li key={s._id}><a href="#servicios">{s.titulo}</a></li>
-              ))}
-            </ul>
-          </div>
-          <div>
-            <p className="footer-col-title">Empresa</p>
-            <ul className="footer-links">
-              <li><a href="#">Nosotros</a></li>
-              <li><a href="#">Blog</a></li>
-              <li><a href="#">Trabaja con nosotros</a></li>
-            </ul>
-          </div>
-          <div>
-            <p className="footer-col-title">Contacto</p>
-            <ul className="footer-links">
-              <li><a href="#">hola@fieralab.com</a></li>
-              <li><a href="#">Lima, Perú</a></li>
-            </ul>
-          </div>
-        </div>
         <div className="footer-bottom">
-          <span className="footer-copy">© 2025 FIERA LAB — Todos los derechos reservados</span>
+          <span className="footer-copy">© 2026 FIERA LAB — Todos los derechos reservados</span>
           <div className="footer-social">
-            <a href="#">Instagram</a>
-            <a href="#">LinkedIn</a>
-            <a href="#">TikTok</a>
+            <a href="mailto:contacto@fieralab.pe">contacto@fieralab.pe</a>
+            <a href="https://www.instagram.com/fieralab.pe/" target="_blank">Instagram</a>
+            <a href="https://www.linkedin.com/company/fieralab" target="_blank">LinkedIn</a>
           </div>
         </div>
       </footer>
 
-      {/* SCRIPTS — cursor + scroll reveal + contadores */}
+      {/* SCRIPTS */}
       <script dangerouslySetInnerHTML={{ __html: `
-        // Cursor
         const cursor = document.getElementById('cursor');
         const ring = document.getElementById('cursorRing');
         let mx = 0, my = 0, rx = 0, ry = 0;
@@ -721,7 +522,6 @@ export default async function Home() {
           el.addEventListener('mouseleave', () => { cursor.style.transform = 'scale(1)'; ring.style.transform = 'scale(1)'; });
         });
 
-        // Scroll reveal
         const observer = new IntersectionObserver(entries => {
           entries.forEach((e, i) => {
             if (e.isIntersecting) {
@@ -732,30 +532,6 @@ export default async function Home() {
         }, { threshold: 0.1 });
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-        // Contadores
-        const animateCounters = () => {
-          document.querySelectorAll('.numero-val').forEach(el => {
-            const text = el.textContent;
-            const match = text.match(/[\\d.]+/);
-            if (!match) return;
-            const target = parseFloat(match[0]);
-            const suffix = text.includes('+') ? '+' : (text.includes('M') ? 'M' : '');
-            let start = 0;
-            const inc = target / 60;
-            const timer = setInterval(() => {
-              start = Math.min(start + inc, target);
-              el.textContent = (suffix === '+' ? '+' : '') + Math.round(start) + (suffix === 'M' ? 'M' : '');
-              if (start >= target) clearInterval(timer);
-            }, 25);
-          });
-        };
-        const numObs = new IntersectionObserver(entries => {
-          if (entries[0].isIntersecting) { animateCounters(); numObs.disconnect(); }
-        });
-        const numSection = document.querySelector('.numeros');
-        if (numSection) numObs.observe(numSection);
-
-        // Botón enviar
         const btnEnviar = document.querySelector('.btn-enviar');
         if (btnEnviar) {
           btnEnviar.addEventListener('click', function() {
