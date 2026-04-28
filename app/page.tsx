@@ -280,7 +280,7 @@ export default async function Home() {
         }
         .cta-titulo {
           font-family: 'Bebas Neue', sans-serif;
-          font-size: clamp(4rem, 7vw, 7rem);
+          font-size: clamp(2rem, 4vw, 4rem);
           line-height: 0.9;
         }
         .cta-titulo em {
